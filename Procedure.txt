@@ -1,0 +1,11 @@
+COUNTER
+Create counter variable in the state
+Create functions/methods for increment/decrement
+Add/subtract to/from previous state of the counter in the functions/methods
+Assign functions/methods to the buttons
+
+FETCH DATA
+Create fetched data variable in the state
+Create functions/methods only for fetching data (returns stringified JSON) with error handling
+Call fetchData function/method on useEffect/componentDidMount and set the result in the state variable
+Show variable in the DOM

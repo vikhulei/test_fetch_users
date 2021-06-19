@@ -4,40 +4,37 @@ class FetchData extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fetchData: "",
-            fullName: "",
-            picture: ""
+            fetchedData: "",
         }
-        this.addNewUser = this.addNewUser.bind(this)
+        this.fetchData = this.fetchData.bind(this)
     }
 
-    componentDidMount() {
-        
-        fetch("https://randomuser.me/api")
-        .then(response => response.json())
-        .then(data => {
-            let name = data.results[0].name
-            let fullN = `${name.title} ${name.first} ${name.last}`
-            let pict = data.results[0].picture.large
-            this.setState({fetchData: JSON.stringify(data.results[0])})
-            this.setState({fullName: fullN})
-            this.setState({picture: pict})
+
+
+    fetchData() {
+        fetch("https://randomuser.me/api")  
+        .then(response => response.json()
+        )
+        .then(
+            data => this.setState(
+                prevState => (
+                    { fetchedData: prevState.fetchedData +
+                    JSON.stringify(data.results)}
+                )
+                )
+
+        )
+
+        .catch(err => {
+            console.error(err)
         })
     }
 
-    addNewUser() {
-
-        this.setState(prevFullName => (
-            {fullName: `${prevFullName.fullName} ${this.state.fullName}`}
-        ))
-    }
 
     render () {
         return <div>
-            <button onClick={this.addNewUser}>Add User</button>
-            <h1>{this.state.fullName}</h1>
-            <img src={this.state.picture} alt="picture"></img>
-            <p>{this.state.fetchData}</p>
+            <button onClick={this.fetchData}>Load Data</button>
+            <p>{this.state.fetchedData}</p>
         </div>
     }
 }
