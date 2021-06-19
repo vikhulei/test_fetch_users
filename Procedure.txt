@@ -6,6 +6,11 @@ Assign functions/methods to the buttons
 
 FETCH DATA
 Create fetched data variable in the state
-Create functions/methods only for fetching data (returns stringified JSON) with error handling
-Call fetchData function/method on useEffect/componentDidMount and set the result in the state variable
-Show variable in the DOM
+Create functions/methods for fetching data ("https://randomuser.me/api") with error handling and set the result in the state variable
+If data needed on load, add the same function/method in componentDidMount/useEffect
+Show variable in the DOM, using map and converting value to JSON string. Assign function to the button
+
+SHOW FULL NAME AND PICTURE
+
+
+ADD PEOPLE ON EACH BUTTON CLICK
