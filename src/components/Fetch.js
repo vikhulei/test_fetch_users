@@ -29,7 +29,10 @@ class FetchData extends React.Component {
     loadData() {
        this.fetchData()
         .then(data => data.results)
-        .then(data => this.setState({fetchedData: data}))
+        .then(data => {
+            this.setState({fetchedData: [...data]})
+            }
+            )
     }
 
     showUser() {
@@ -42,9 +45,10 @@ class FetchData extends React.Component {
         this.fetchData()
         .then(data => data.results)
         .then(data => 
-            {
-                this.setState({usersInfos: [...this.state.usersInfos, data[0]] })
-            })
+             {
+                 this.setState(prev => ({usersInfos: [...prev.usersInfos, ...data] }))
+             }
+        )
     }
 
     getFullUserInfo(userInfo) {
