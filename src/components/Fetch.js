@@ -1,4 +1,5 @@
 import React from "react"
+import axios from "axios";
 
 class FetchData extends React.Component {
     constructor(props) {
@@ -18,17 +19,16 @@ class FetchData extends React.Component {
 
 
     fetchData() {
-        return fetch("https://randomuser.me/api")  
-        .then(response => response.json()
-        )
+        return axios.get("https://randomuser.me/api")  
+        .then(data => data.data.results)
         .catch(err => {
             console.error(err)
         })
     }
 
     loadData() {
+       
        this.fetchData()
-        .then(data => data.results)
         .then(data => {
             this.setState({fetchedData: [...data]})
             }
@@ -37,13 +37,12 @@ class FetchData extends React.Component {
 
     showUser() {
         this.fetchData()
-        .then(data => {this.setState({userInformation: data.results})
+        .then(data => {this.setState({userInformation: data})
         })
     }
 
     addUsers() {
         this.fetchData()
-        .then(data => data.results)
         .then(data => 
              {
                  this.setState(prev => ({usersInfos: [...prev.usersInfos, ...data] }))
