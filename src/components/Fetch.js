@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react"
+import axios from "axios"
 
 
 const Fetch = () => {
@@ -6,15 +7,15 @@ const Fetch = () => {
 const [fetchedData, setFetchedData] = useState()
 
 useEffect(() => {
-    fetch("https://randomuser.me/api")
-    .then(data => data.json())
-    .then(data => data.results.map(val => val))
+    axios.get("https://randomuser.me/api")
+    .then(data => data.data.results)
+    .then(data => data.map(val => val))
     .then(data => setFetchedData(JSON.stringify(data)))
 }, [])
 
     return <div>
         <h1>Hello from Fetch</h1>
-        <p>{fetchedData}</p>
+         <p>{fetchedData}</p> 
     </div>
 }
 
