@@ -2,25 +2,24 @@ import React, {useState} from 'react';
 import './App.css';
 import Counter from "./components/Counter"
 import Fetch from "./components/Fetch"
+import Count from "./components/Count"
 
 
-class App extends React.Component {
-constructor(props) {
-  super(props);
-  this.state = {
-    init: 1,
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 1,
+    }
   }
-}
 
-  render () {
-    const tst = this.state.init
+  render() {
+
     return <div className="App">
-      <Counter init = {tst}/>
+      <Count counter = {this.state.counter}/>
     </div>
   }
 }
-
-export default App
 
 
 //   const [init, setInit] = useState(2)
