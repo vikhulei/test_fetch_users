@@ -12,7 +12,6 @@ constructor(props) {
   }
 }
 
-
   render () {
     const tst = this.state.init
     return <div className="App">
