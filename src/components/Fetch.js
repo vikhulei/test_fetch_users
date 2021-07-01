@@ -1,31 +1,40 @@
 import React, {useState, useEffect} from "react"
-import axios from "axios"
-
 
 const Fetch = () => {
 
-const [fetchedData, setFetchedData] = useState([])
-const [userInf, setUserInf] = useState([])
-const [urlPic, setUrlPic] = useState("")
+const [fData, setFData] = useState("")
+const [userData, setUserData] = useState([])
 
-useEffect(() => {
-    axios.get("https://randomuser.me/api")
-    .then(data => data.data.results)
-    .then(data => setFetchedData(JSON.stringify(data)))
-}, []) 
-
-const showUser = () => {
-    const title = JSON.parse(fetchedData)
-    console.log(title[0].name.title)
-    setUserInf(title)
+const fetchData = () => {
+    return fetch("https://randomuser.me/api")
+    .then(data => data.json())
+    .then(data => data.results)
 }
 
-    return <div>
-        <h1>Hello from Fetch</h1>
-         <p>{fetchedData}</p>
-         <button onClick={showUser}>Show User</button>
-         <div>{userInf}</div>
+const showUser = () => {
+    fetchData()
+    .then(data => setUserData(prev => [...prev, ...data]))
+    .then(() => console.log(userData))
+}
+
+useEffect(() => {
+    fetchData()
+    .then(data => setFData(JSON.stringify(data)))
+}, [])
+
+return <div>
+    <h1>This is fetched data:</h1>
+    <p>{fData}</p>
+    <button onClick={showUser}>Show User</button>
+    <div>
+        {userData.map((value, idx) => {
+            return <div key={idx}>
+                <p>{`${value.name.title} ${value.name.first} ${value.name.last}`}</p>
+                <img src={value.picture.large}/>
+            </div>
+        })}
     </div>
+</div>
 }
 
 export default Fetch
