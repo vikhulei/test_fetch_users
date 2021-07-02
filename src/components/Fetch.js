@@ -2,39 +2,37 @@ import React, {useState, useEffect} from "react"
 
 const Fetch = () => {
 
-const [fData, setFData] = useState("")
-const [userData, setUserData] = useState([])
+    const [fetchedData, setFetchedData] = useState("")
+    const [fetchedUser, setFetchedUser] = useState([])
 
-const fetchData = () => {
-    return fetch("https://randomuser.me/api")
-    .then(data => data.json())
-    .then(data => data.results)
-}
+    const fetchData = () => {
+        return fetch("https://randomuser.me/api")
+        .then(data => data.json())
+        .then(data => data.results)
+    }
 
-const showUser = () => {
+const getUser = () => {
     fetchData()
-    .then(data => setUserData(prev => [...prev, ...data]))
-    .then(() => console.log(userData))
+    .then(data => setFetchedUser(prev => [...prev, ...data]))
 }
 
 useEffect(() => {
     fetchData()
-    .then(data => setFData(JSON.stringify(data)))
+    .then(data => setFetchedData(JSON.stringify(data)))
 }, [])
 
-return <div>
-    <h1>This is fetched data:</h1>
-    <p>{fData}</p>
-    <button onClick={showUser}>Show User</button>
-    <div>
-        {userData.map((value, idx) => {
-            return <div key={idx}>
-                <p>{`${value.name.title} ${value.name.first} ${value.name.last}`}</p>
-                <img src={value.picture.large}/>
-            </div>
-        })}
+    return <div>
+        <p>{fetchedData}</p>
+        <button onClick={getUser}>Get User</button>
+        <div style={{display: "flex", flexWrap: "wrap"}}>
+            {fetchedUser.map((val, idx) => {
+                return <div key={idx} >
+                <p>{val.name.last}</p>
+                <img src={val.picture.large}/>
+                </div>
+                })}
+        </div>
     </div>
-</div>
 }
 
 export default Fetch
